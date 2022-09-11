@@ -17,7 +17,7 @@ public static class Parser
         else throw new ArgumentException();
     }
 
-    private static bool IsArgLengthSupported(string[] args) => args.Length == 3;
+    private static bool IsArgLengthSupported(IReadOnlyCollection<string> args) => args.Count == 3;
 
     private static CalculatorOperation ParseOperation(string arg) => arg switch
     {
