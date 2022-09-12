@@ -3,6 +3,7 @@
 ![.NET](https://github.com/ZaripovRamil/dotnet-homeworks-2/actions/workflows/dotnet.yml/badge.svg)
 [![codecov](https://codecov.io/gh/max-arshinov/dotnet-homeworks-2/branch/master/graph/badge.svg?token=e68fefcd-c6dc-4077-b93c-a0b31f7357d0)](https://codecov.io/gh/max-arshinov/dotnet-homeworks-2)
 
+
 ## Как устроены Actions
 1. ***build***: *Проверка: собирается ли проект.*
 2. ***test*** и ***test-report***: *Все тесты должны проходить*
@@ -12,3 +13,4 @@
 5. После этого в рамках локального репозитория создаётся пулл реквест из ветки с решённым домашним заданием в master. Далее произойдёт автоматический запуск всех workflow:
 - если все workflow успешно отработают , то просите ментора провести code-review. 
 - иначе смотрите логи workflow, который не отработал и исправляете проблему.
+
