@@ -12,8 +12,7 @@ public class ProgramTests
     [InlineData("1 / 0")]
     public void ProgramDoesNotFallOnMathOperations(string input)
     {
-        var result = Program.Main(input.Split());
-        Assert.Equal(0, result);
+        RunTest(input, 0);
     }
 
     [Theory]
@@ -23,8 +22,7 @@ public class ProgramTests
     [InlineData("1 +")]
     public void ProgramCatchesWrongNumberOfArguments(string input)
     {
-        var result = Program.Main(input.Split());
-        Assert.Equal(-2, result);
+        RunTest(input, -2);
     }
 
     [Theory]
@@ -32,15 +30,19 @@ public class ProgramTests
     [InlineData("a - f")]
     public void ProgramCatchesNonDoubleInput(string input)
     {
-        var result = Program.Main(input.Split());
-        Assert.Equal(-2, result);
+        RunTest(input, -2);
     }
 
     [Theory]
     [InlineData("3 . 4")]
     public void ProgramCatchesWrongOperations(string input)
     {
+        RunTest(input, -3);
+    }
+
+    private static void RunTest(string input, int expectedCode)
+    {
         var result = Program.Main(input.Split());
-        Assert.Equal(-3, result);
+        Assert.Equal(expectedCode, result);
     }
 }
