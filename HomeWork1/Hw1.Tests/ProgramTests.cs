@@ -24,7 +24,7 @@ public class ProgramTests
     public void ProgramCatchesWrongNumberOfArguments(string input)
     {
         var result = Program.Main(input.Split());
-        Assert.Equal(-1, result);
+        Assert.Equal(-2, result);
     }
 
     [Theory]
@@ -33,7 +33,7 @@ public class ProgramTests
     public void ProgramCatchesNonDoubleInput(string input)
     {
         var result = Program.Main(input.Split());
-        Assert.Equal(-1, result);
+        Assert.Equal(-2, result);
     }
 
     [Theory]
@@ -41,6 +41,6 @@ public class ProgramTests
     public void ProgramCatchesWrongOperations(string input)
     {
         var result = Program.Main(input.Split());
-        Assert.Equal(-2, result);
+        Assert.Equal(-3, result);
     }
 }
