@@ -1,4 +1,5 @@
-﻿.class public sealed auto ansi
+﻿
+.class public sealed auto ansi
   Hw2.CalculatorOperation
     extends System.Enum
 {
