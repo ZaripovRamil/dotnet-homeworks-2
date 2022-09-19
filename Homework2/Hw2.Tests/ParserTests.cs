@@ -6,10 +6,9 @@ namespace Hw2Tests;
 public class ParserTests
 {
     [Theory]
-    [InlineData("+", CalculatorOperation.Plus)]
-    [InlineData("-", CalculatorOperation.Minus)]
-    [InlineData("*", CalculatorOperation.Multiply)]
-    [InlineData("/", CalculatorOperation.Divide)]
+    [InlineData("0", "0")]
+    [InlineData("1", "1,5")]
+    [InlineData("-1", "-1,25")]
     public void TestCorrectNumbers(string str1, string str2)
     {
         // arrange
