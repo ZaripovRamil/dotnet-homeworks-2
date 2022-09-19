@@ -1,6 +1,7 @@
+using Hw2;
 using Xunit;
 
-namespace Hw2.Tests;
+namespace Hw2Tests;
 
 public class CalculatorTests
 {

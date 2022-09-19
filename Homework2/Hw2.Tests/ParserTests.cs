@@ -1,6 +1,7 @@
+using Hw2;
 using Xunit;
 
-namespace Hw2.Tests;
+namespace Hw2Tests;
 
 public class ParserTests
 {
@@ -15,7 +16,7 @@ public class ParserTests
         var args = new[] { str1, "+", str2 };
             
         //act
-        Parser.ParseCalcArguments(args, out var val1, out var operationResult, out var val2);
+        Parser.ParseCalcArguments(args, out var val1, out _, out var val2);
 
         //assert
         Assert.Equal(double.Parse(str1), val1);
@@ -33,7 +34,7 @@ public class ParserTests
         var args = new[] { "0", operation, "0" };
             
         //act
-        Parser.ParseCalcArguments(args, out var val1, out var operationResult, out var val2);
+        Parser.ParseCalcArguments(args, out _, out var operationResult, out _);
 
         //assert
         Assert.Equal(operationExpected, operationResult);
