@@ -9,7 +9,43 @@ public class ParserTests
     [InlineData("-", CalculatorOperation.Minus)]
     [InlineData("*", CalculatorOperation.Multiply)]
     [InlineData("/", CalculatorOperation.Divide)]
+    public void TestCorrectNumbers(string str1, string str2)
+    {
+        // arrange
+        var args = new[] { str1, "+", str2 };
+            
+        //act
+        Parser.ParseCalcArguments(args, out var val1, out var operationResult, out var val2);
+
+        //assert
+        Assert.Equal(double.Parse(str1), val1);
+        Assert.Equal(double.Parse(str2), val2);
+    }
+    
+    [Theory]
+    [InlineData("+", CalculatorOperation.Plus)]
+    [InlineData("-", CalculatorOperation.Minus)]
+    [InlineData("*", CalculatorOperation.Multiply)]
+    [InlineData("/", CalculatorOperation.Divide)]
     public void TestCorrectOperations(string operation, CalculatorOperation operationExpected)
+    {
+        // arrange
+        var args = new[] { "0", operation, "0" };
+            
+        //act
+        Parser.ParseCalcArguments(args, out var val1, out var operationResult, out var val2);
+
+        //assert
+        Assert.Equal(operationExpected, operationResult);
+    }
+
+    
+    [Theory]
+    [InlineData("+", CalculatorOperation.Plus)]
+    [InlineData("-", CalculatorOperation.Minus)]
+    [InlineData("*", CalculatorOperation.Multiply)]
+    [InlineData("/", CalculatorOperation.Divide)]
+    public void TestFullCorrectInputs(string operation, CalculatorOperation operationExpected)
     {
         // arrange
         var args = new[] { "15", operation, "5" };

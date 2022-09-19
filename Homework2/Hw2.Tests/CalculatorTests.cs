@@ -26,7 +26,7 @@ public class CalculatorTests
     }
 
     [Fact]
-    public void TestDividingNonZeroByZero()
+    public void TestDividingZeroByNonZero()
     {
         //act
         var actual = Calculator.Calculate(0, CalculatorOperation.Divide, 10);
@@ -36,7 +36,7 @@ public class CalculatorTests
     }
 
     [Fact]
-    public void TestDividingZeroByNonZero()
+    public void TestDividingNonZeroByZero()
     {
         //act
         var actual = Calculator.Calculate(10, CalculatorOperation.Divide, 0);
