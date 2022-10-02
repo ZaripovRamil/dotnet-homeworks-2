@@ -27,8 +27,8 @@ public class SingleInitializationSingleton
         lock (Locker)
         {
             if (!_isInitialized) return;
-            _isInitialized = false;
             _lazyHolder = SetupHolder();
+            _isInitialized = false;
         }
     }
     
