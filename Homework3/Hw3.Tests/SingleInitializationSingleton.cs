@@ -23,9 +23,17 @@ public class SingleInitializationSingleton
 
     internal static void Reset()
     {
-        _isInitialized = false;
-        _lazyHolder = SetupHolder();
+        if (!_isInitialized) return;
+        lock (Locker)
+        {
+            if (!_isInitialized) return;
+            _isInitialized = false;
+            _lazyHolder = SetupHolder();
+        }
     }
+    
+    private static void DoubleInitThrow()=> 
+        throw new InvalidOperationException("Double initialization occured");
 
     public static void Initialize(int delay)
     {
@@ -38,14 +46,13 @@ public class SingleInitializationSingleton
         }
     }
 
-    private static void DoubleInitThrow()=> 
-        throw new InvalidOperationException("Double initialization occured");
-    
+    private static Lazy<SingleInitializationSingleton> SetupHolder(int delay = DefaultDelay)
+    {
+        var initializer = InitializeLazyHolderSingleton(delay);
+        return new(initializer);
+    }
 
-    private static Lazy<SingleInitializationSingleton> SetupHolder(int delay = DefaultDelay) =>
-        new(LazyHolderSingletonInitiator(delay));
-
-    private static Func<SingleInitializationSingleton> LazyHolderSingletonInitiator(int delay) =>
+    private static Func<SingleInitializationSingleton> InitializeLazyHolderSingleton(int delay) =>
         () => new SingleInitializationSingleton(delay);
 
     public static SingleInitializationSingleton Instance => _lazyHolder.Value;
