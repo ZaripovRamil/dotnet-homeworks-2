@@ -32,15 +32,15 @@ public class SingleInitializationSingleton
         }
     }
     
-    private static void DoubleInitThrow()=> 
+    private static void ThrowDoubleInit()=> 
         throw new InvalidOperationException("Double initialization occured");
 
     public static void Initialize(int delay)
     {
-        if (_isInitialized) DoubleInitThrow();
+        if (_isInitialized) ThrowDoubleInit();
         lock (Locker)
         {
-            if (_isInitialized) DoubleInitThrow();
+            if (_isInitialized) ThrowDoubleInit();
             _lazyHolder = SetupHolder(delay);
             _isInitialized = true;
         }
