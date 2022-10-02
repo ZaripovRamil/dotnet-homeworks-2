@@ -49,7 +49,7 @@ public class SingleInitializationSingleton
     private static Lazy<SingleInitializationSingleton> SetupHolder(int delay = DefaultDelay)
     {
         var initializer = InitializeLazyHolderSingleton(delay);
-        return new(initializer);
+        return new Lazy<SingleInitializationSingleton>(initializer);
     }
 
     private static Func<SingleInitializationSingleton> InitializeLazyHolderSingleton(int delay) =>
