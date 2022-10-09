@@ -1,6 +1,7 @@
 module Hw4Tests.CalculatorTests
 
 open System
+open Hw4.CalculatorOperation
 open Hw4.Calculator
 open Xunit
         
