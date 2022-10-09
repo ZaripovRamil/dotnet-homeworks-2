@@ -4,7 +4,6 @@ open System
 open Hw4.CalculatorOperation
 open CalcOptions
 
-
 let calculate (value1: float) operation value2 =
     match operation with
     | CalculatorOperation.Plus -> value1 + value2
@@ -13,5 +12,5 @@ let calculate (value1: float) operation value2 =
     | CalculatorOperation.Divide -> value1 / value2
     | _ -> ArgumentOutOfRangeException() |> raise
     
-let сalculate calcOptions =
+let calculateFromOptions calcOptions =
     calculate calcOptions.arg1 calcOptions.operation calcOptions.arg2

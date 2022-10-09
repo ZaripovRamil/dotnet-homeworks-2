@@ -17,13 +17,11 @@ let parseOperation arg =
 let parseDouble (str:string) =
     match Double.TryParse str  with
     | true, double -> double
-    | _ -> ArgumentException()|>raise
-
-
-
+    | _ -> ArgumentException() |> raise
+    
 let parseCalcArguments args =
    if args = null || not(isArgLengthSupported args) then
-       ArgumentException()|> raise
+       ArgumentException() |> raise
    { arg1 = (parseDouble args[0])
      operation = parseOperation args[1]
      arg2 = (parseDouble args[2]) }

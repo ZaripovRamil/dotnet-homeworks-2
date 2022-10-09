@@ -4,6 +4,4 @@ open Hw4.Calculator
 
 let readArgs = Console.ReadLine().Split()
 
-
-readArgs |> parseCalcArguments |> сalculate|> printfn "%f"
-
+readArgs |> parseCalcArguments |> calculateFromOptions|> printfn "%f"
