@@ -1,5 +1,6 @@
 ﻿module Hw5.Tests.ProgramTests
 
+open System
 open Hw5
 open Program
 open Xunit        
@@ -12,10 +13,13 @@ open Xunit
 [<InlineData("a","+","1")>]   
 [<InlineData("1.0",".","1")>]        
 [<InlineData("1","/","0")>]        
-let test3args(a1, a2, a3) =
+let ``program never fails on 3 args`` (a1, a2, a3) =
     let args = [|a1;a2;a3|]
-    Assert.Equal(0, main args)
+    let acceptableResults = [|0;1;2;3|]
+    Array.contains (main args) acceptableResults
+    |>Assert.True
     
 [<Fact>]
-let testNull =
-    Assert.Equal(0, main null)
+let ``program never fails on null`` =
+    (0, main null)
+    |>Assert.Equal

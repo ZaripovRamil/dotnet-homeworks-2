@@ -6,7 +6,6 @@ type MaybeBuilder() =
         | Error error -> Error error
         | Ok a -> f a
 
-    member this.Return(x) =
-        Ok x
+    member this.Return(x) = Ok x
 
 let maybe = MaybeBuilder()

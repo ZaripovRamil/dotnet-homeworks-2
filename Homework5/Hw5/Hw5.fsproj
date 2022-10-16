@@ -7,7 +7,7 @@
 
     <ItemGroup>
         <Compile Include="MaybeBuilder.fs" />
-        <Compile Include="Enums.fs" />
+        <Compile Include="Message.fs" />
         <Compile Include="Calculator.fs" />
         <Compile Include="Parser.fs" />
         <Compile Include="Program.fs" />
