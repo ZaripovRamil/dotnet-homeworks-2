@@ -1,10 +1,12 @@
 ﻿module Hw5.MaybeBuilder
 
-open System
-
 type MaybeBuilder() =
-    member builder.Bind(a, f): Result<'e,'d> =
-        (NotImplementedException() |> raise)
-    member builder.Return x: Result<'a,'b> =
-        (NotImplementedException() |> raise)
+    member this.Bind(x, f) =
+        match x with
+        | Error error -> Error error
+        | Ok a -> f a
+
+    member this.Return(x) =
+        Ok x
+
 let maybe = MaybeBuilder()

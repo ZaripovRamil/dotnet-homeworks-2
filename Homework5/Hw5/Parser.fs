@@ -4,18 +4,51 @@ open System
 open Hw5.Calculator
 
 let isArgLengthSupported (args:string[]): Result<'a,'b> =
-    (NotImplementedException() |> raise)
+    match args=null with
+    | false -> match args.Length with
+                   |3-> Ok args
+                   |_-> Error Message.WrongArgLength
+    | true -> Error Message.WrongArgLength
+                   
+let parseOp (str:string) =
+    match str  with
+    |Plus->Some CalculatorOperation.Plus
+    |Minus-> Some CalculatorOperation.Minus
+    |Multiply ->Some CalculatorOperation.Multiply 
+    |Divide -> Some CalculatorOperation.Divide
+    | _ -> None
+
+let parseDouble (str:string) =
+    match Double.TryParse str with
+    | true, double -> Some double
+    | _ -> None
     
 [<System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage>]
-let inline isOperationSupported (arg1, operation, arg2): Result<('a * CalculatorOperation * 'b), Message> =
-    (NotImplementedException() |> raise)
+let inline isOperationSupported (arg1, operation, arg2): Result<'a * CalculatorOperation * 'b, Message> =
+    match parseOp operation with
+    |Some op -> Ok(arg1, op, arg2)
+    |None -> Error Message.WrongArgFormatOperation
 
-let parseArgs (args: string[]): Result<('a * CalculatorOperation * 'b), Message> =
-    (NotImplementedException() |> raise)    
+let parseArgs (args: string[]): Result<'a * CalculatorOperation * 'b, Message> =
+    match parseDouble args[0] with
+    |None -> Error Message.WrongArgFormat
+    |Some a -> match parseDouble args[2] with
+               |None -> Error Message.WrongArgFormat
+               |Some b -> isOperationSupported(a, args[1], b)
 
 [<System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage>]
-let inline isDividingByZero (arg1, operation, arg2): Result<('a * CalculatorOperation * 'b), Message> =
-    (NotImplementedException() |> raise)       
-    
+let inline isDividingByZero (arg1, operation, arg2): Result<'a * CalculatorOperation * 'b, Message> =
+    match operation with
+    |CalculatorOperation.Divide->
+        match arg2 with
+        |0.0 -> Error Message.DivideByZero
+        |_ -> Ok(arg1, operation, arg2)
+    | _ -> Ok(arg1, operation, arg2)
+        
 let parseCalcArguments (args: string[]): Result<'a, 'b> =
-    (NotImplementedException() |> raise)    
+    MaybeBuilder.maybe{
+       let! parseable = args|>isArgLengthSupported
+       let! correctArgs = parseable|>parseArgs
+       let! checkDivisionByZero = correctArgs|>isDividingByZero
+       return checkDivisionByZero
+    } 
