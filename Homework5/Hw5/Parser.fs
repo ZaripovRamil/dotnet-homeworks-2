@@ -4,7 +4,7 @@ open System
 open Hw5.Calculator
 open Hw5.MaybeBuilder
 
-let isArgLengthSupported (args: string []) : Result<string[], Message> =
+let isArgLengthSupported (args: string []) =
     match args = null with
     | false ->
         match args.Length with
@@ -26,12 +26,12 @@ let parseDouble (str: string) =
     | _ -> None
 
 [<System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage>]
-let isOperationSupported arg1 operation arg2 : Result<'a * CalculatorOperation * 'b, Message> =
+let isOperationSupported arg1 operation arg2=
     match parseOp operation with
     | Some op -> Ok(arg1, op, arg2)
     | None -> Error Message.WrongArgFormatOperation
 
-let parseArgs (args: string []) : Result<'a * CalculatorOperation * 'b, Message> =
+let parseArgs (args: string []) =
     match parseDouble args[0] with
     | None -> Error Message.WrongArgFormat
     | Some a ->
@@ -40,7 +40,7 @@ let parseArgs (args: string []) : Result<'a * CalculatorOperation * 'b, Message>
         | Some b -> isOperationSupported a args[1] b
 
 [<System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage>]
-let isDividingByZero arg1 operation arg2 : Result<'a * CalculatorOperation * 'b, Message> =
+let isDividingByZero arg1 operation arg2 =
     match operation with
     | CalculatorOperation.Divide ->
         match arg2 with
@@ -48,7 +48,7 @@ let isDividingByZero arg1 operation arg2 : Result<'a * CalculatorOperation * 'b,
         | _ -> Ok(arg1, operation, arg2)
     | _ -> Ok(arg1, operation, arg2)
 
-let parseCalcArguments args : Result<'a, Message> =
+let parseCalcArguments args =
     maybe {
         let! parseable = args |> isArgLengthSupported
         let! correctArgs = parseable |> parseArgs
