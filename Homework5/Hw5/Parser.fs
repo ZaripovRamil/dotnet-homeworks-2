@@ -4,7 +4,7 @@ open System
 open Hw5.Calculator
 open Hw5.MaybeBuilder
 
-let isArgLengthSupported (args: string []) : Result<'a, 'b> =
+let isArgLengthSupported (args: string []) : Result<string[], Message> =
     match args = null with
     | false ->
         match args.Length with
@@ -12,7 +12,7 @@ let isArgLengthSupported (args: string []) : Result<'a, 'b> =
         | _ -> Error Message.WrongArgLength
     | true -> Error Message.WrongArgLength
 
-let parseOp (str: string) =
+let parseOp str =
     match str with
     | Plus -> Some CalculatorOperation.Plus
     | Minus -> Some CalculatorOperation.Minus
@@ -26,21 +26,21 @@ let parseDouble (str: string) =
     | _ -> None
 
 [<System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage>]
-let isOperationSupported (arg1, operation, arg2) : Result<'a * CalculatorOperation * 'b, Message> =
+let isOperationSupported arg1 operation arg2 : Result<'a * CalculatorOperation * 'b, Message> =
     match parseOp operation with
     | Some op -> Ok(arg1, op, arg2)
     | None -> Error Message.WrongArgFormatOperation
 
-let parseArgs (args: string []) : Result<'a * CalculatorOperation * 'b, 'c> =
+let parseArgs (args: string []) : Result<'a * CalculatorOperation * 'b, Message> =
     match parseDouble args[0] with
     | None -> Error Message.WrongArgFormat
     | Some a ->
         match parseDouble args[2] with
         | None -> Error Message.WrongArgFormat
-        | Some b -> isOperationSupported (a, args[1], b)
+        | Some b -> isOperationSupported a args[1] b
 
 [<System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage>]
-let isDividingByZero (arg1, operation, arg2) : Result<'a * CalculatorOperation * 'b, 'c> =
+let isDividingByZero arg1 operation arg2 : Result<'a * CalculatorOperation * 'b, Message> =
     match operation with
     | CalculatorOperation.Divide ->
         match arg2 with
@@ -48,10 +48,10 @@ let isDividingByZero (arg1, operation, arg2) : Result<'a * CalculatorOperation *
         | _ -> Ok(arg1, operation, arg2)
     | _ -> Ok(arg1, operation, arg2)
 
-let parseCalcArguments (args: string []) : Result<'a, 'b> =
+let parseCalcArguments args : Result<'a, Message> =
     maybe {
         let! parseable = args |> isArgLengthSupported
         let! correctArgs = parseable |> parseArgs
-        let! checkDivisionByZero = correctArgs |> isDividingByZero
+        let! checkDivisionByZero = correctArgs |||> isDividingByZero
         return checkDivisionByZero
     }
