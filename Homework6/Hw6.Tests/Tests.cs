@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Hw6;
 using Xunit;
@@ -63,7 +64,7 @@ namespace Hw6Tests
         public async Task TestAllOperationsIncorrectValues(string value1, string value2, string operation,
             string expectedValue, HttpStatusCode statusCode) =>
             await RunTest(value1, value2, operation, expectedValue, statusCode);
-        
+
         [Theory]
         [InlineData("15.6", "5.6", "@", "Could not parse value '@'", HttpStatusCode.BadRequest)]
         [InlineData("15.6", "5.6", "$", "Could not parse value '$'", HttpStatusCode.BadRequest)]
@@ -76,18 +77,56 @@ namespace Hw6Tests
         public async Task TestParserDividingByZero() =>
             await RunTest("15.6", "0", "Divide", "DivideByZero", HttpStatusCode.OK, true);
 
-        private async Task RunTest(string value1, string value2, string operation, string expectedValueOrError,
+        [Theory]
+        [InlineData("15.6", "5.6", "+", "wrongName", "value2", "operation", "Could not parse value1",
+            HttpStatusCode.BadRequest)]
+        [InlineData("15.6", "5.6", "-", "value1", "wrongName", "operation", "Could not parse value2",
+            HttpStatusCode.BadRequest)]
+        [InlineData("15.6", "5.6", "*", "value1", "value2", "wrongName", "Could not parse operation",
+            HttpStatusCode.BadRequest)]
+        public async Task TestIncorrectValueNames(string value1, string value2, string operation, string value1Name,
+            string value2Name, string opName,
+            string expectedValue, HttpStatusCode statusCode) =>
+            await RunTestWithCustomUrl(value1, value2, operation, value1Name,opName,value2Name,expectedValue, statusCode);
+    
+
+    private async Task RunTest(string value1, string value2, string operation, string expectedValueOrError,
             HttpStatusCode statusCode, bool isDividingByZero = false)
         {
             // arrange
             var url = $"/calculate?value1={value1}&operation={operation}&value2={value2}";
-            
+
             // act
-            var client = _factory.CreateClient();
-            var response = await client.GetAsync(url);
-            var result = await response.Content.ReadAsStringAsync();
+            var response = await GetResponse(url);
 
             // assert
+            await AssertResponse(response, statusCode,expectedValueOrError,isDividingByZero);
+        }
+
+
+        private async Task RunTestWithCustomUrl(string value1, string value2, string operation,
+            string value1Name, string opName, string value2Name, string expectedValueOrError,
+            HttpStatusCode statusCode, bool isDividingByZero = false)
+        {
+            // arrange
+            var url = $"/calculate?{value1Name}={value1}&{opName}={operation}&{value2Name}={value2}";
+
+            // act
+            var response = await GetResponse(url);
+
+            // assert
+            await AssertResponse(response, statusCode, expectedValueOrError, isDividingByZero);
+        }
+
+        private async Task<HttpResponseMessage> GetResponse(string url)
+        {
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync(url);
+            return response;
+        }
+        private static async Task AssertResponse(HttpResponseMessage response, HttpStatusCode statusCode, string expectedValueOrError, bool isDividingByZero)
+        {
+            var result = await response.Content.ReadAsStringAsync();
             Assert.True(response.StatusCode == statusCode);
             if (statusCode == HttpStatusCode.OK && !isDividingByZero)
                 Assert.True(Math.Abs(decimal.Parse(expectedValueOrError, CultureInfo.InvariantCulture) -
