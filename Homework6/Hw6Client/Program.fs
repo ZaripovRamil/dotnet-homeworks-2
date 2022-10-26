@@ -19,7 +19,7 @@ let handleQueryAsync(client : HttpClient) (url : string) =
 
 let rec handleUserRequests client=
     Console.WriteLine("Insert your calculation request")
-    let args = Console.ReadLine().Split(" ",StringSplitOptions.RemoveEmptyEntries )
+    let args = Console.ReadLine().Split(" ",StringSplitOptions.RemoveEmptyEntries)
     match args.Length with
         | 3 ->
             let url = $"http://localhost:5000/calculate?value1={args[0]}&operation={getOperationName args[1]}&value2={args[2]}";
@@ -29,9 +29,7 @@ let rec handleUserRequests client=
         | _ ->
             printfn "Incorrect input format"
             handleUserRequests client
-        
-    
-    
+            
 [<EntryPoint>]
 let main _ =
     let client = new HttpClient(new HttpClientHandler())

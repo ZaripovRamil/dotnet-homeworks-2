@@ -3,7 +3,6 @@
 open Giraffe
 open Microsoft.AspNetCore.Http
 
-
 let getInputFromRequest (request:HttpRequest)=
     let parseArg (str: string) =
         match request.Query.TryGetValue str with
@@ -18,8 +17,6 @@ let getInputFromRequest (request:HttpRequest)=
                 | _ -> Error("Could not parse value2")
             | _ -> Error("Could not parse operation")
     | _ -> Error("Could not parse value1")
-    
-    
     
 let getInputFromContext (context:HttpContext) =
     getInputFromRequest context.Request
@@ -40,6 +37,3 @@ let calculatorHandler:HttpHandler=
             |"DivideByZero"->
                 (setStatusCode 200 >=> text "DivideByZero") next ctx
             | _ -> (setStatusCode 400 >=> text (error.ToString())) next ctx
-    
-    
-   
