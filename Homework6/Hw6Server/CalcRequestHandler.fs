@@ -3,20 +3,19 @@
 open Giraffe
 open Microsoft.AspNetCore.Http
 
+
 let getInputFromRequest (request:HttpRequest)=
     let parseArg (str: string) =
         match request.Query.TryGetValue str with
-        | true, arg -> Some arg
-        | _ -> None
-    match parseArg "value1" with
-    |Some value1->
-        match parseArg "operation" with
-            |Some operation->
-                match parseArg "value2" with
-                |Some value2->Ok([|value1.ToString();operation.ToString();value2.ToString()|])
-                | _ -> Error("Could not parse value2")
-            | _ -> Error("Could not parse operation")
-    | _ -> Error("Could not parse value1")
+        | true, arg -> Ok (arg.ToString())
+        | _ -> Error $"Could not parse {str}"
+    
+    MaybeBuilder.maybe{
+         let! parsedVal1 = parseArg "value1"
+         let! parsedOp= parseArg "operation"
+         let! parsedVal2 = parseArg "value2"
+         return [|parsedVal1;parsedOp;parsedVal2|]   
+    }
     
 let getInputFromContext (context:HttpContext) =
     getInputFromRequest context.Request
