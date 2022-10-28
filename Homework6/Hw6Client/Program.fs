@@ -42,7 +42,7 @@ let rec handleUserRequestsAsync client =
             printfn $"result: {result}"
 
             return! (handleUserRequestsAsync client)
-        | 0 -> return 0
+        | 0 -> return ()
         | _ ->
             printfn "Incorrect input format"
             return! (handleUserRequestsAsync client)
@@ -52,3 +52,4 @@ let rec handleUserRequestsAsync client =
 let main _ =
     use client = new HttpClient()
     Async.RunSynchronously(handleUserRequestsAsync client)
+    0
