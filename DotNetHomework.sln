@@ -12,6 +12,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "actions", "actions", "{82BA
 		.github\coverlet.runsettings = .github\coverlet.runsettings
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Homework6", "Homework6", "{E16D4D1E-F9D7-4566-8439-E4A063CFAFAD}"
+	ProjectSection(SolutionItems) = preProject
+		Homework6\README.md = Homework6\README.md
+	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Hw6Server", "Homework6\Hw6Server\Hw6Server.fsproj", "{3B6B82C5-ACA8-4128-86CB-1EECC9D3B6BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hw6Tests", "Homework6\Hw6.Tests\Hw6Tests.csproj", "{9A993124-7262-48FA-8FAB-A8EABA119947}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Hw6Client", "Homework6\Hw6Client\Hw6Client.fsproj", "{A80A1ED2-A05D-4701-ACC3-5F3F041597A3}"
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hw3", "hw3", "{78F13A34-FDFB-4991-AE29-7EB1298599BD}"
 	ProjectSection(SolutionItems) = preProject
 		Homework3\README.md = Homework3\README.md
@@ -35,6 +45,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B6B82C5-ACA8-4128-86CB-1EECC9D3B6BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B6B82C5-ACA8-4128-86CB-1EECC9D3B6BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B6B82C5-ACA8-4128-86CB-1EECC9D3B6BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B6B82C5-ACA8-4128-86CB-1EECC9D3B6BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A993124-7262-48FA-8FAB-A8EABA119947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A993124-7262-48FA-8FAB-A8EABA119947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A993124-7262-48FA-8FAB-A8EABA119947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A993124-7262-48FA-8FAB-A8EABA119947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A80A1ED2-A05D-4701-ACC3-5F3F041597A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A80A1ED2-A05D-4701-ACC3-5F3F041597A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A80A1ED2-A05D-4701-ACC3-5F3F041597A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A80A1ED2-A05D-4701-ACC3-5F3F041597A3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3B6B82C5-ACA8-4128-86CB-1EECC9D3B6BC} = {E16D4D1E-F9D7-4566-8439-E4A063CFAFAD}
+		{9A993124-7262-48FA-8FAB-A8EABA119947} = {E16D4D1E-F9D7-4566-8439-E4A063CFAFAD}
+		{A80A1ED2-A05D-4701-ACC3-5F3F041597A3} = {E16D4D1E-F9D7-4566-8439-E4A063CFAFAD}
 		{8474FA7C-94A1-43A8-8B85-720B4BB6D796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8474FA7C-94A1-43A8-8B85-720B4BB6D796}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8474FA7C-94A1-43A8-8B85-720B4BB6D796}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,5 +86,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E1942129-E679-4E2C-BF1E-5334351D624E} = {1F321195-3723-45FB-B142-7532B04DA505}
 		{814746E9-72AE-4BEC-B0F5-36E66A19C896} = {1F321195-3723-45FB-B142-7532B04DA505}
+
 	EndGlobalSection
 EndGlobal
