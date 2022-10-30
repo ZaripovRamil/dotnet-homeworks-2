@@ -6,14 +6,8 @@ namespace Hw7.Controllers;
 public class HomeController : Controller
 {
     [HttpGet]
-    public IActionResult UserProfile()
-    {
-        return View();
-    }
+    public IActionResult UserProfile() => View();
 
     [HttpPost]
-    public IActionResult UserProfile(UserProfile profile)
-    {
-        return View(profile);
-    }
+    public IActionResult UserProfile(UserProfile profile) => View();
 }
