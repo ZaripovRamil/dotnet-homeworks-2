@@ -1,8 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using Hw7.ErrorMessages;
 
 namespace Hw7.Models.ForTests;
 
+[ExcludeFromCodeCoverage]
 public class TestModel : BaseModel
 {
     //without [Display(Name = "Имя")]
@@ -19,13 +21,12 @@ public class TestModel : BaseModel
     [Required(ErrorMessage = Messages.RequiredMessage)]
     [Display(Name = "Отчество")]
     public override string? MiddleName { get; set; }
-    
+
     //without [Display(Name = "Возраст")]
     [Range(10, 100, ErrorMessage = $"Age {Messages.RangeMessage}")]
     public override int Age { get; set; }
-    
-    [Display(Name = "Пол")]
-    public override Sex Sex { get; set; }
-    
+
+    [Display(Name = "Пол")] public override Sex Sex { get; set; }
+
     public string A { get; set; } = null!;
 }

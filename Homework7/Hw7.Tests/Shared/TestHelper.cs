@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Hw7.Models.ForTests;
+using Hw7.Tests.Shared;
 
 namespace Hw7Tests.Shared;
 
