@@ -9,5 +9,5 @@ public class HomeController : Controller
     public IActionResult UserProfile() => View();
 
     [HttpPost]
-    public IActionResult UserProfile(UserProfile profile) => View();
+    public IActionResult UserProfile(UserProfile profile) => View(profile);
 }
