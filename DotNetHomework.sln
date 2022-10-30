@@ -12,6 +12,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "actions", "actions", "{82BA
 		.github\coverlet.runsettings = .github\coverlet.runsettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hw7", "Homework7\Hw7\Hw7.csproj", "{72792ADC-14C5-4D47-8BA8-69E67294606A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hw7.Tests", "Homework7\Hw7.Tests\Hw7.Tests.csproj", "{EFFCAE7C-FC6C-4CAD-9A8B-914D7D52F2ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Homework7", "Homework7", "{6FDC39E7-9E3C-4350-9902-9140B9187ED9}"
+	ProjectSection(SolutionItems) = preProject
+		Homework7\README.md = Homework7\README.md
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Homework6", "Homework6", "{E16D4D1E-F9D7-4566-8439-E4A063CFAFAD}"
 	ProjectSection(SolutionItems) = preProject
 		Homework6\README.md = Homework6\README.md
@@ -45,6 +54,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72792ADC-14C5-4D47-8BA8-69E67294606A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72792ADC-14C5-4D47-8BA8-69E67294606A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72792ADC-14C5-4D47-8BA8-69E67294606A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72792ADC-14C5-4D47-8BA8-69E67294606A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFFCAE7C-FC6C-4CAD-9A8B-914D7D52F2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFFCAE7C-FC6C-4CAD-9A8B-914D7D52F2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFFCAE7C-FC6C-4CAD-9A8B-914D7D52F2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFFCAE7C-FC6C-4CAD-9A8B-914D7D52F2ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{72792ADC-14C5-4D47-8BA8-69E67294606A} = {6FDC39E7-9E3C-4350-9902-9140B9187ED9}
+		{EFFCAE7C-FC6C-4CAD-9A8B-914D7D52F2ED} = {6FDC39E7-9E3C-4350-9902-9140B9187ED9}
 		{3B6B82C5-ACA8-4128-86CB-1EECC9D3B6BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B6B82C5-ACA8-4128-86CB-1EECC9D3B6BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B6B82C5-ACA8-4128-86CB-1EECC9D3B6BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -86,6 +107,5 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E1942129-E679-4E2C-BF1E-5334351D624E} = {1F321195-3723-45FB-B142-7532B04DA505}
 		{814746E9-72AE-4BEC-B0F5-36E66A19C896} = {1F321195-3723-45FB-B142-7532B04DA505}
-
 	EndGlobalSection
 EndGlobal
