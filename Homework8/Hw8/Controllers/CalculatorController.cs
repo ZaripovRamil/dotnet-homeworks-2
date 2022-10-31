@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using Hw8.Calculator;
 using Hw8.Common;
-using Hw8.Parser;
+using Hw8.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hw8.Controllers;
@@ -9,34 +8,34 @@ namespace Hw8.Controllers;
 public class CalculatorController : Controller
 { 
     private readonly IParser _parser;
+    private readonly ICalculator _calculator;
 
-    public CalculatorController([FromServices]IParser parser)
+    public CalculatorController(IParser parser, ICalculator calculator)
     {
         _parser = parser;
+        _calculator = calculator;
     }
-
-    public ActionResult<double> Calculate([FromServices] ICalculator calculator,
-        [FromQuery]string val1,
-        [FromQuery]string operation,
-        [FromQuery]string val2)
+    
+    [HttpGet]
+    public IActionResult Calculate(string val1,
+        string operation,
+        string val2)
     {
-        double value1;
-        Operation op;
-        double value2;
+        ParseOutput parsed;
         try
         {
-            _parser.ParseCalcArguments(val1, operation, val2, out value1, out op, out value2);
+            parsed = _parser.ParseCalcArguments(new ParseInput(val1,operation, val2));
         }
-        catch (Exception e)
+        catch (Exception e) when(e is ArgumentException or InvalidOperationException)
         {
             return BadRequest(e.Message);
         }
 
         try
         {
-            return Ok(calculator.Calculate(value1, op, value2));
+            return Ok(_calculator.Calculate(parsed));
         }
-        catch(Exception e)
+        catch(Exception e) when (e is InvalidOperationException)
         {
             return Ok(e.Message);
         }

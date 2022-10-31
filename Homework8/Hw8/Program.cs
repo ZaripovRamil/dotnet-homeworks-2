@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using Hw8.Calculator;
-using Hw8.Parser;
+using Hw8.Interfaces;
+using Hw8.Services;
 
 namespace Hw8;
 
@@ -12,8 +12,8 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddControllersWithViews();
-        builder.Services.AddTransient<ICalculator, Calculator.Calculator>();
-        builder.Services.AddTransient<IParser, Parser.Parser>();
+        builder.Services.AddTransient<ICalculator, Calculator>();
+        builder.Services.AddTransient<IParser, Parser>();
         var app = builder.Build();
 
         if (!app.Environment.IsDevelopment())

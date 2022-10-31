@@ -1,7 +1,8 @@
 ﻿using System.Globalization;
 using Hw8.Common;
+using Hw8.Interfaces;
 
-namespace Hw8.Parser;
+namespace Hw8.Services;
 
 public class Parser:IParser
 {
@@ -27,13 +28,17 @@ public class Parser:IParser
                 return false;
         }
     }
-    public void ParseCalcArguments(string arg1, string arg2, string arg3, out double val1, out Operation operation,
-        out double val2)
+
+    private static bool TryParseDouble(string arg, out double val) =>
+        double.TryParse(arg, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out val);
+
+    public ParseOutput ParseCalcArguments(ParseInput input)
     {
-        if (!(double.TryParse(arg1, NumberStyles.AllowDecimalPoint,CultureInfo.InvariantCulture,  out val1) 
-              && double.TryParse(arg3,NumberStyles.AllowDecimalPoint,CultureInfo.InvariantCulture,  out val2)))
+        if (!(TryParseDouble(input.Val1,  out var val1)
+              && TryParseDouble(input.Val2, out var val2)))
             throw new ArgumentException(Messages.InvalidNumberMessage);
-        if (!TryParseOperation(arg2, out operation))
+        if (!TryParseOperation(input.Operation, out var operation))
             throw new InvalidOperationException(Messages.InvalidOperationMessage);
+        return new ParseOutput(val1, operation, val2);
     }
 }

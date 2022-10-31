@@ -1,10 +1,10 @@
 using Hw8.Common;
 
-namespace Hw8.Calculator;
+namespace Hw8.Interfaces;
 
 public interface ICalculator
 {
-    double Calculate(double val1, Operation operation, double val2);
+    double Calculate(ParseOutput data);
     double Plus(double val1, double val2);
     
     double Minus(double val1, double val2);
