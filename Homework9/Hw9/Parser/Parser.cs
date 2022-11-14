@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using static Hw9.Parser.Splitter;
 using static Hw9.ErrorMessages.MathErrorMessager;
 using Exception = System.Exception;

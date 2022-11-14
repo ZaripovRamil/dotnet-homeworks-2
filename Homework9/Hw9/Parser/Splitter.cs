@@ -19,18 +19,16 @@ public static class Splitter
             {
                 result.Add(opToken!);
                 index += 1;
+                continue;
             }
-
-            if (index < expression.Length)
-                if (TryParseBracket(expression[index], out var brToken))
-                {
-                    result.Add(brToken!);
-                    index += 1;
-                }
-
-            if (index < expression.Length)
-                if (char.IsDigit(expression[index]))
-                    result.Add(GetNumber(expression, ref index));
+            if (TryParseBracket(expression[index], out var brToken))
+            {
+                result.Add(brToken!);
+                index += 1;
+                continue;
+            }
+            if (char.IsDigit(expression[index]))
+                result.Add(GetNumber(expression, ref index));
         }
 
         return result;
@@ -68,7 +66,7 @@ public static class Splitter
         throw new Exception(NotNumberMessage(expression.Substring(start, index - start)));
     }
 
-    private static bool IsOperator(char s) => 
+    private static bool IsOperator(char s) =>
         "+-*/".Contains(s);
 
     private static bool IsBracket(char s) =>
