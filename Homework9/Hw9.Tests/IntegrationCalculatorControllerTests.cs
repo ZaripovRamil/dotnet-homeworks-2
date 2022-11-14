@@ -18,11 +18,13 @@ public class IntegrationCalculatorControllerTests : IClassFixture<WebApplication
 	
 	[Theory]
 	[InlineData("10", "10")]
+	[InlineData("-1", "-1")]
 	[InlineData("2 + 3", "5")]
 	[InlineData("(10 - 3) * 2", "14")]
 	[InlineData("3 - 4 / 2", "1")]
 	[InlineData("8 * (2 + 2) - 3 * 4", "20")]
 	[InlineData("10 - 3 * (-4)", "22")]
+	[InlineData("(2 + 10) / 12 * 7", "7")]
 	public async Task Calculate_CalculateExpression_Success(string expression, string result)
 	{
 		var response = await CalculateAsync(expression);
@@ -35,6 +37,7 @@ public class IntegrationCalculatorControllerTests : IClassFixture<WebApplication
 	[InlineData("", MathErrorMessager.EmptyString)]
 	[InlineData("10 + i", $"{MathErrorMessager.UnknownCharacter} i")]
 	[InlineData("10 : 2", $"{MathErrorMessager.UnknownCharacter} :")]
+	[InlineData("2.", $"{MathErrorMessager.NotNumber} 2.")]
 	[InlineData("3 - 4 / 2.2.3", $"{MathErrorMessager.NotNumber} 2.2.3")]
 	[InlineData("2 - 2.23.1 - 23", $"{MathErrorMessager.NotNumber} 2.23.1")]
 	[InlineData("8 - / 2", $"{MathErrorMessager.TwoOperationInRow} - and /")]
