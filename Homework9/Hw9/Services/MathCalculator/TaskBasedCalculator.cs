@@ -30,7 +30,9 @@ public class TaskBasedCalculator
 
     public async Task<double> Calculate(Expression expression, params Expression[] expressions)
     {
-        var tasks = expressions.Select(async exp => await _expressionTaskHolder[exp].Value);
+        var tasks = expressions
+            .Select(async exp => await _expressionTaskHolder[exp].Value)
+            .ToArray();
         await Task.WhenAll(tasks);
         var values = tasks.Select(task => task.Result)
             .ToArray();
