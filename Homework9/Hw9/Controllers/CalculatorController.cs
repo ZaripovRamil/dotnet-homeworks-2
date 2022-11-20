@@ -7,11 +7,11 @@ namespace Hw9.Controllers
 {
     public class CalculatorController : Controller
     {
-        private readonly IMathCalculatorService _mathCalculatorService;
+        private readonly IMathCalculator _mathCalculator;
 
-        public CalculatorController(IMathCalculatorService mathCalculatorService)
+        public CalculatorController(IMathCalculator mathCalculator)
         {
-            _mathCalculatorService = mathCalculatorService;
+            _mathCalculator = mathCalculator;
         }
         
         [HttpGet]
@@ -24,7 +24,7 @@ namespace Hw9.Controllers
         [HttpPost]
         public async Task<ActionResult<CalculationMathExpressionResultDto>> CalculateMathExpression(string expression)
         {
-            var result = await _mathCalculatorService.CalculateMathExpressionAsync(expression);
+            var result = await _mathCalculator.CalculateMathExpressionAsync(expression);
             return Json(result);
         }
     }

@@ -7,6 +7,6 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMathCalculator(this IServiceCollection services)
     {
         return services
-            .AddTransient<IMathCalculatorService, MathCalculatorService>();
+            .AddTransient<IMathCalculator, MathCalculator>();
     }
 }
