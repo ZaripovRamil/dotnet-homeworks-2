@@ -12,10 +12,8 @@ public class SolvingExpression
 		Result = result;
 	}
 
-	public int SolvingExpressionId { get; set; }
-		
 	[Required] 
-	public string Expression { get; set; } = null!;
+	public string Expression { get; set; }
 
 	[Required] 
 	public double Result { get; set; }
