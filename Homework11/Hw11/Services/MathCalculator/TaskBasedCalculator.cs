@@ -7,27 +7,29 @@ public class TaskBasedCalculator
 {
     private readonly Dictionary<Expression, Lazy<Task<double>>> _expressionTaskHolder = new();
 
-    public void Add(BinaryExpression expression)
+    private void Add(BinaryExpression expression)
     {
         _expressionTaskHolder.Add(expression,
-            new Lazy<Task<double>>(async ()=>await Calculate(expression, expression.Left, expression.Right)));
+            new Lazy<Task<double>>(async ()=> await Calculate(expression)));
     }
 
-    public void Add(UnaryExpression expression)
+    private void Add(UnaryExpression expression)
     {
         _expressionTaskHolder.Add(expression,
-            new Lazy<Task<double>>(async ()=> await Calculate(expression, expression.Operand)));
+            new Lazy<Task<double>>(async ()=> await Calculate(expression)));
     }
 
-    public void Add(ConstantExpression expression)
+    private void Add(ConstantExpression expression)
     {
         _expressionTaskHolder.Add(expression,
             new Lazy<Task<double>>(Task.FromResult((double) expression.Value!)));
     }
 
-    public async Task<double> Calculate(Expression expression, params Expression[] expressions)
+    public void Add(Expression expression) => Add((dynamic) expression);
+
+    public async Task<double> Calculate(Expression expression)
     {
-        var tasks = expressions
+        var tasks = expression.GetChildrenNodes()
             .Select(async exp => await _expressionTaskHolder[exp].Value)
             .ToArray();
         await Task.WhenAll(tasks);

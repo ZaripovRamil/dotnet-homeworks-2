@@ -8,19 +8,10 @@ public class CalcVisitor
 
     private void Visit(Expression node)
     {
-        _calculator.Add((dynamic)node);
-        foreach(var childNode in GetChildrenNodes((dynamic)node))
+        _calculator.Add(node);
+        foreach(var childNode in node.GetChildrenNodes())
             Visit(childNode);
     }
-
-    private static IEnumerable<Expression> GetChildrenNodes(BinaryExpression node)
-        => new[] {node.Left, node.Right};
-
-    private static IEnumerable<Expression> GetChildrenNodes(UnaryExpression node)
-        => new[] {node.Operand};
-
-    private static IEnumerable<Expression> GetChildrenNodes(ConstantExpression node)
-        => Array.Empty<Expression>();
 
     public TaskBasedCalculator VisitWith(Expression node)
     {
