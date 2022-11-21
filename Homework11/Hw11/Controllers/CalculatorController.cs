@@ -8,10 +8,10 @@ namespace Hw11.Controllers;
 
 public class CalculatorController : Controller
 {
-    private readonly IMathCalculatorService _mathCalculatorService;
+    private readonly IMathCalculator _mathCalculatorService;
     private readonly IExceptionHandler _exceptionHandler;
 
-    public CalculatorController(IMathCalculatorService mathCalculatorService, IExceptionHandler exceptionHandler)
+    public CalculatorController(IMathCalculator mathCalculatorService, IExceptionHandler exceptionHandler)
     {
         _mathCalculatorService = mathCalculatorService;
         _exceptionHandler = exceptionHandler;

@@ -1,6 +1,6 @@
 namespace Hw11.Services.MathCalculator;
 
-public interface IMathCalculatorService
+public interface IMathCalculator
 { 
     Task<double> CalculateMathExpressionAsync(string? expression);
 }
