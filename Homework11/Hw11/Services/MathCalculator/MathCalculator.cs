@@ -4,6 +4,7 @@ public class MathCalculator : IMathCalculator
 {
     public async Task<double> CalculateMathExpressionAsync(string? expression)
     {
-        throw new NotImplementedException();
+        return await ExpressionCalculator.VisitAsync(
+                Parser.Parser.GetExpression(expression));
     }
 }

@@ -15,18 +15,21 @@ public static class Splitter
         var index = 0;
         while (index < expression.Length)
         {
-            if (TryParseOperator(expression[index], out var opToken))
+            var opToken = ParseOperator(expression[index]);
+            if (opToken!=null)
             {
-                result.Add(opToken!);
+                result.Add(opToken);
                 index += 1;
                 continue;
             }
-            if (TryParseBracket(expression[index], out var brToken))
+            var brToken = ParseBracket(expression[index]);
+            if (brToken!=null)
             {
-                result.Add(brToken!);
+                result.Add(brToken);
                 index += 1;
                 continue;
             }
+
             if (char.IsDigit(expression[index]))
                 result.Add(GetNumber(expression, ref index));
         }
@@ -67,26 +70,23 @@ public static class Splitter
     }
 
     private static bool IsOperator(char s) =>
-        "+-*/".Contains(s);
+        ParseOperator(s) != null;
 
     private static bool IsBracket(char s) =>
-        "()".Contains(s);
+        ParseBracket(s) != null;
 
 
-    private static bool TryParseBracket(char s, out Bracket? br)
-    {
-        br = s switch
-        {
-            '(' => new Bracket(BracketType.Opening),
-            ')' => new Bracket(BracketType.Closing),
-            _ => default
-        };
-        return br != null;
-    }
+    private static Bracket? ParseBracket(char s)
+        => s switch
+            {
+                '(' => new Bracket(BracketType.Opening),
+                ')' => new Bracket(BracketType.Closing),
+                _ => default
+            };
 
-    private static bool TryParseOperator(char s, out Operation? op)
-    {
-        op = s switch
+
+    private static Operation? ParseOperator(char s)
+    =>s switch
         {
             '+' => new Operation(OperationType.Plus),
             '-' => new Operation(OperationType.Minus),
@@ -94,6 +94,4 @@ public static class Splitter
             '/' => new Operation(OperationType.Divide),
             _ => null
         };
-        return op != null;
-    }
 }

@@ -2,31 +2,29 @@
 
 namespace Hw11.Services.MathCalculator;
 
-public class CalcVisitor : ExpressionVisitor
+public class CalcVisitor
 {
     private readonly TaskBasedCalculator _calculator = new();
 
-    protected override Expression VisitBinary(BinaryExpression node)
+    private void Visit(Expression node)
     {
-        _calculator.Add(node);
-        return base.VisitBinary(node);
+        _calculator.Add((dynamic)node);
+        foreach(var childNode in GetChildrenNodes((dynamic)node))
+            Visit(childNode);
     }
 
-    protected override Expression VisitUnary(UnaryExpression node)
-    {
-        _calculator.Add(node);
-        return base.VisitUnary(node);
-    }
+    private static IEnumerable<Expression> GetChildrenNodes(BinaryExpression node)
+        => new[] {node.Left, node.Right};
 
-    protected override Expression VisitConstant(ConstantExpression node)
-    {
-        _calculator.Add(node);
-        return base.VisitConstant(node);
-    }
+    private static IEnumerable<Expression> GetChildrenNodes(UnaryExpression node)
+        => new[] {node.Operand};
 
-    public TaskBasedCalculator VisitWith(Expression? node)
+    private static IEnumerable<Expression> GetChildrenNodes(ConstantExpression node)
+        => Array.Empty<Expression>();
+
+    public TaskBasedCalculator VisitWith(Expression node)
     {
-        base.Visit(node);
+        Visit(node);
         return _calculator;
     }
 }
