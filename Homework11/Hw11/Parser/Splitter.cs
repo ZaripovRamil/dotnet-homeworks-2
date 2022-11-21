@@ -1,4 +1,6 @@
-﻿namespace Hw11.Parser;
+﻿using Hw11.Exceptions;
+
+namespace Hw11.Parser;
 
 using static ErrorMessages.MathErrorMessager;
 
@@ -10,7 +12,7 @@ public static class Splitter
             throw new Exception(EmptyString);
         expression = expression.Replace(" ", "");
         if (!AllCharactersAreValid(expression, out var symbol))
-            throw new Exception(UnknownCharacterMessage(symbol!.Value));
+            throw new InvalidSymbolException(UnknownCharacterMessage(symbol!.Value));
         var result = new List<Token>();
         var index = 0;
         while (index < expression.Length)
@@ -59,14 +61,14 @@ public static class Splitter
             index++;
             while (index < expression.Length && char.IsDigit(expression[index]))
                 index++;
-            if (expression[index - 1] == '.') throw new Exception(NotNumberMessage(expression));
+            if (expression[index - 1] == '.') throw new InvalidNumberException(NotNumberMessage(expression));
         }
 
         if (index >= expression.Length || IsBracket(expression[index]) || IsOperator(expression[index]))
             return new Number(double.Parse(expression.Substring(start, index - start)));
         while (index < expression.Length && !IsBracket(expression[index]) && !IsOperator(expression[index]))
             index++;
-        throw new Exception(NotNumberMessage(expression.Substring(start, index - start)));
+        throw new InvalidNumberException(NotNumberMessage(expression.Substring(start, index - start)));
     }
 
     private static bool IsOperator(char s) =>

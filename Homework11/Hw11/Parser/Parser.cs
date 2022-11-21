@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Hw11.Exceptions;
 using static Hw11.Parser.Splitter;
 using static Hw11.ErrorMessages.MathErrorMessager;
 using Exception = System.Exception;
@@ -11,7 +12,7 @@ public static class Parser
     {
         var tokens = SplitToTokens(query);
         if (!IsExpressible(tokens, out var message))
-            throw new Exception(message);
+            throw new InvalidSyntaxException(message);
         return GetExpression(tokens, 0, tokens.Count);
     }
 
