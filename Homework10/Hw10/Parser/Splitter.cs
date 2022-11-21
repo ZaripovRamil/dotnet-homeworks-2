@@ -1,6 +1,4 @@
-﻿using Hw10.Parser;
-
-namespace Hw10.Parser;
+﻿namespace Hw10.Parser;
 
 using static ErrorMessages.MathErrorMessager;
 
@@ -17,18 +15,21 @@ public static class Splitter
         var index = 0;
         while (index < expression.Length)
         {
-            if (TryParseOperator(expression[index], out var opToken))
+            var opToken = ParseOperator(expression[index]);
+            if (opToken!=null)
             {
-                result.Add(opToken!);
+                result.Add(opToken);
                 index += 1;
+                continue;
             }
 
-            if (index < expression.Length)
-                if (TryParseBracket(expression[index], out var brToken))
-                {
-                    result.Add(brToken!);
-                    index += 1;
-                }
+            var brToken = ParseBracket(expression[index]);
+            if (brToken != null)
+            {
+                result.Add(brToken);
+                index += 1;
+                continue;
+            }
 
             if (index < expression.Length)
                 if (char.IsDigit(expression[index]))
@@ -70,27 +71,24 @@ public static class Splitter
         throw new Exception(NotNumberMessage(expression.Substring(start, index - start)));
     }
 
-    private static bool IsOperator(char s) => 
+    private static bool IsOperator(char s) =>
         "+-*/".Contains(s);
 
     private static bool IsBracket(char s) =>
         "()".Contains(s);
 
 
-    private static bool TryParseBracket(char s, out Bracket? br)
-    {
-        br = s switch
+    private static Bracket? ParseBracket(char s)
+        => s switch
         {
             '(' => new Bracket(BracketType.Opening),
             ')' => new Bracket(BracketType.Closing),
             _ => null
         };
-        return br != null;
-    }
 
-    private static bool TryParseOperator(char s, out Operation? op)
-    {
-        op = s switch
+
+    private static Operation? ParseOperator(char s)
+        => s switch
         {
             '+' => new Operation(OperationType.Plus),
             '-' => new Operation(OperationType.Minus),
@@ -98,6 +96,4 @@ public static class Splitter
             '/' => new Operation(OperationType.Divide),
             _ => null
         };
-        return op != null;
-    }
 }
