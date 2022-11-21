@@ -38,7 +38,7 @@ public class TaskBasedCalculator
             .ToArray();
         if (expression is ConstantExpression) return await _expressionTaskHolder[expression].Value;
         await Task.Delay(1000);
-        return await Task.FromResult(Calculate(expression, values));
+        return Calculate(expression, values);
     }
 
     private static double Calculate(Expression expression, params double[] values)

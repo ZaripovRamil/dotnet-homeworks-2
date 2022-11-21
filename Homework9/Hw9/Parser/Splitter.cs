@@ -79,7 +79,7 @@ public static class Splitter
         {
             '(' => new Bracket(BracketType.Opening),
             ')' => new Bracket(BracketType.Closing),
-            _ => null
+            _ => default
         };
         return br != null;
     }
