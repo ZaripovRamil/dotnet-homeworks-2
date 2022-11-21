@@ -5,7 +5,7 @@ namespace Hw11.Services.MathCalculator;
 
 public class TaskBasedCalculator
 {
-    private Dictionary<Expression, Lazy<Task<double>>> _expressionTaskHolder = new();
+    private readonly Dictionary<Expression, Lazy<Task<double>>> _expressionTaskHolder = new();
 
     public void Add(BinaryExpression expression)
     {
