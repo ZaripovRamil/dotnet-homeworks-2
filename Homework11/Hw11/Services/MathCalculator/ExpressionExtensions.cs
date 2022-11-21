@@ -14,6 +14,5 @@ public static class ExpressionExtensions
         => Array.Empty<Expression>();
 
     public static IEnumerable<Expression> GetChildrenNodes(this Expression expression)
-    =>
-        GetChildrenNodes((dynamic) expression);
+        => GetChildrenNodes((dynamic) expression);
 }

@@ -18,14 +18,15 @@ public static class Splitter
         while (index < expression.Length)
         {
             var opToken = ParseOperator(expression[index]);
-            if (opToken!=null)
+            if (opToken != null)
             {
                 result.Add(opToken);
                 index += 1;
                 continue;
             }
+
             var brToken = ParseBracket(expression[index]);
-            if (brToken!=null)
+            if (brToken != null)
             {
                 result.Add(brToken);
                 index += 1;
@@ -80,15 +81,15 @@ public static class Splitter
 
     private static Bracket? ParseBracket(char s)
         => s switch
-            {
-                '(' => new Bracket(BracketType.Opening),
-                ')' => new Bracket(BracketType.Closing),
-                _ => default
-            };
+        {
+            '(' => new Bracket(BracketType.Opening),
+            ')' => new Bracket(BracketType.Closing),
+            _ => default
+        };
 
 
     private static Operation? ParseOperator(char s)
-    =>s switch
+        => s switch
         {
             '+' => new Operation(OperationType.Plus),
             '-' => new Operation(OperationType.Minus),

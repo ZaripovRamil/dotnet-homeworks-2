@@ -10,13 +10,13 @@ public class TaskBasedCalculator
     private void Add(BinaryExpression expression)
     {
         _expressionTaskHolder.Add(expression,
-            new Lazy<Task<double>>(async ()=> await Calculate(expression)));
+            new Lazy<Task<double>>(async () => await Calculate(expression)));
     }
 
     private void Add(UnaryExpression expression)
     {
         _expressionTaskHolder.Add(expression,
-            new Lazy<Task<double>>(async ()=> await Calculate(expression)));
+            new Lazy<Task<double>>(async () => await Calculate(expression)));
     }
 
     private void Add(ConstantExpression expression)

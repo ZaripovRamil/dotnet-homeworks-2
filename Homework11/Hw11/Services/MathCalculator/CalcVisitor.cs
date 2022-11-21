@@ -9,7 +9,7 @@ public class CalcVisitor
     private void Visit(Expression node)
     {
         _calculator.Add(node);
-        foreach(var childNode in node.GetChildrenNodes())
+        foreach (var childNode in node.GetChildrenNodes())
             Visit(childNode);
     }
 
