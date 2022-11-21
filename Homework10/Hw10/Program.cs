@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services
-    .AddMathCalculator()
     .AddCachedMathCalculator();
 
 builder.Services.AddDbContext<ApplicationContext>(options =>

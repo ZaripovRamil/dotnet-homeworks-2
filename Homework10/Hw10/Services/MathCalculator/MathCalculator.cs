@@ -5,7 +5,7 @@ namespace Hw10.Services.MathCalculator;
 
 public class MathCalculator : IMathCalculator
 {
-    public async Task<CalculationMathExpressionResultDto> CalculateMathExpressionAsync(string? query)
+    public virtual async Task<CalculationMathExpressionResultDto> CalculateMathExpressionAsync(string? query)
     {
         try
         {

@@ -16,7 +16,6 @@ public static class ServiceCollectionExtensions
     {
         return services.AddScoped<IMathCalculator>(s =>
             new MathCachedCalculator(
-                s.GetRequiredService<ApplicationContext>(), 
-                s.GetRequiredService<MathCalculator>()));
+                s.GetRequiredService<ApplicationContext>()));
     }
 }
