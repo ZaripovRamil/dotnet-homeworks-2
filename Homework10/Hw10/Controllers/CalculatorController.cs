@@ -1,18 +1,17 @@
 using System.Diagnostics.CodeAnalysis;
 using Hw10.Dto;
 using Hw10.Services;
-using Hw10.Services.MathCalculator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hw10.Controllers;
 
 public class CalculatorController : Controller
 {
-    private readonly IMathCalculatorService _mathCalculatorService;
+    private readonly IMathCalculator _mathCalculator;
 
-    public CalculatorController(IMathCalculatorService mathCalculatorService)
+    public CalculatorController(IMathCalculator mathCalculator)
     {
-        _mathCalculatorService = mathCalculatorService;
+        _mathCalculator = mathCalculator;
     }
         
     [HttpGet]
@@ -25,7 +24,7 @@ public class CalculatorController : Controller
     [HttpPost]
     public async Task<ActionResult<CalculationMathExpressionResultDto>> CalculateMathExpression(string expression)
     {
-        var result = await _mathCalculatorService.CalculateMathExpressionAsync(expression);
+        var result = await _mathCalculator.CalculateMathExpressionAsync(expression);
         return Json(result);
     }
 }

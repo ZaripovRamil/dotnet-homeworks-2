@@ -1,8 +1,12 @@
 using Hw10.Dto;
+using Hw10.Parser;
+using Hw10.Services;
+
+
 
 namespace Hw10.Services.MathCalculator;
 
-public class MathCalculatorService : IMathCalculatorService
+public class MathCalculator : IMathCalculator
 {
     public async Task<CalculationMathExpressionResultDto> CalculateMathExpressionAsync(string? query)
     {

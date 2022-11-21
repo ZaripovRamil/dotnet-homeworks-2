@@ -5,5 +5,13 @@ namespace Hw10.Services.MathCalculator;
 public static class ExpressionCalculator
 {
     public static async Task<double> VisitAsync(Expression expression)
-        => await new CalcVisitor().VisitWith(expression)[expression].Value;
+    {
+        var children = expression switch
+        {
+            BinaryExpression be => new[] {be.Left, be.Right},
+            UnaryExpression ue => new[] {ue.Operand},
+            _ => Array.Empty<Expression>()
+        };
+        return await new CalcVisitor().VisitWith(expression).Calculate(expression, children);
+    }
 }

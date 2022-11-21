@@ -9,14 +9,14 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddMathCalculator(this IServiceCollection services)
     {
-        return services.AddTransient<MathCalculatorService>();
+        return services.AddTransient<MathCalculator>();
     }
     
     public static IServiceCollection AddCachedMathCalculator(this IServiceCollection services)
     {
-        return services.AddScoped<IMathCalculatorService>(s =>
-            new MathCachedCalculatorService(
+        return services.AddScoped<IMathCalculator>(s =>
+            new MathCachedCalculator(
                 s.GetRequiredService<ApplicationContext>(), 
-                s.GetRequiredService<MathCalculatorService>()));
+                s.GetRequiredService<MathCalculator>()));
     }
 }

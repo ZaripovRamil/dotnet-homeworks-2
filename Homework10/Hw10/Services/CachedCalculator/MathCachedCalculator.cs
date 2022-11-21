@@ -3,12 +3,12 @@ using Hw10.Dto;
 
 namespace Hw10.Services.CachedCalculator;
 
-public class MathCachedCalculatorService : IMathCalculatorService
+public class MathCachedCalculator : IMathCalculator
 {
     private readonly ApplicationContext _dbContext;
-    private readonly IMathCalculatorService _simpleCalculator;
+    private readonly IMathCalculator _simpleCalculator;
 
-    public MathCachedCalculatorService(ApplicationContext dbContext, IMathCalculatorService simpleCalculator)
+    public MathCachedCalculator(ApplicationContext dbContext, IMathCalculator simpleCalculator)
     {
         _dbContext = dbContext;
         _simpleCalculator = simpleCalculator;

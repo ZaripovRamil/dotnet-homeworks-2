@@ -11,7 +11,7 @@ public class SolvingExpression
 		Expression = expression;
 		Result = result;
 	}
-
+	public int SolvingExpressionId { get; set; }
 	[Required] 
 	public string Expression { get; set; }
 
