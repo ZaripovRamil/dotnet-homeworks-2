@@ -1,6 +1,7 @@
 ﻿module Hw5.Parser
 
 open System
+open System.Globalization
 open Hw5.Calculator
 open Hw5.MaybeBuilder
 
@@ -21,7 +22,7 @@ let parseOp str =
     | _ -> None
 
 let parseDouble (str: string) =
-    match Double.TryParse str with
+    match Double.TryParse(str, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture) with
     | true, double -> Some double
     | _ -> None
 
