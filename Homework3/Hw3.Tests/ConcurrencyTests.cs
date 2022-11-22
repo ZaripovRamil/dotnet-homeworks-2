@@ -1,8 +1,6 @@
 using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Hw3.Mutex;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -88,47 +86,5 @@ public class ConcurrencyTests
     {
         var expected = Concurrency.IncrementWithConcurrentDictionary(8, 100_000);
         Assert.Equal(expected, Concurrency.Index);
-    }
-
-    [Fact]
-    public async Task Mutex()
-    {
-        var p1 = new Process 
-        {
-            StartInfo = GetProcessStartInfo()
-        };
-        var p2 = new Process 
-        {
-            StartInfo = GetProcessStartInfo()
-        };
-
-        var sw = new Stopwatch();
-        sw.Start();
-        p1.Start();
-        p2.Start();
-        await p1.WaitForExitAsync();
-        await p2.WaitForExitAsync();
-        p1.WaitForExit();
-        var val = await p1.StandardOutput.ReadToEndAsync();
-        _toh.WriteLine(val);
-        
-        p2.WaitForExit(); 
-        val = await p2.StandardOutput.ReadToEndAsync();
-        sw.Stop();
-        _toh.WriteLine(val);
-        
-       Assert.True(sw.Elapsed.TotalMilliseconds >= WithMutex.Delay * 2);
-    }
-
-    private static ProcessStartInfo GetProcessStartInfo()
-    {
-        return new ProcessStartInfo
-        {
-            FileName = "dotnet",
-            Arguments = "run --project ../../../../Hw3.Mutex/Hw3.Mutex.csproj",
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            CreateNoWindow = true
-        };
     }
 }
