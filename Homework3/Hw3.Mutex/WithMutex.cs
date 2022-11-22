@@ -43,14 +43,6 @@ public class WithMutex: IDisposable
             return;
         }
 
-        if (disposing)
-        {
-            // no managed resources
-            // this "if" statement is intentionally empty 
-            // for educational purposes
-            // You don't need it in the production code
-        }
-
         _mutex.ReleaseMutex();
         _disposed = true;
     }

@@ -2,7 +2,6 @@
 using Hw11.Exceptions;
 using static Hw11.Parser.Splitter;
 using static Hw11.ErrorMessages.MathErrorMessager;
-using Exception = System.Exception;
 
 namespace Hw11.Parser;
 
@@ -207,15 +206,12 @@ public static class Parser
     private static bool IsStartingWithBinaryOperation(List<Token> tokens, out string message)
     {
         if (tokens[0] is Operation thisOp)
-        {
             if (thisOp.Type == OperationType.Minus) thisOp.Type = OperationType.Negate;
             else
             {
                 message = StartingWithOperation;
                 return true;
             }
-        }
-
         message = "";
         return false;
     }

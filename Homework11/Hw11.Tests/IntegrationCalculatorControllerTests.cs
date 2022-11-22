@@ -19,6 +19,7 @@ public class IntegrationCalculatorControllerTests : IClassFixture<WebApplication
 	
 	[Theory]
 	[InlineData("10", "10")]
+	[InlineData("-1", "-1")]
 	[InlineData("2 + 3", "5")]
 	[InlineData("(10 - 3) * 2", "14")]
 	[InlineData("3 - 4 / 2", "1")]

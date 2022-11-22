@@ -24,19 +24,11 @@ public class ConcurrencyTests
         Assert.Equal(expected, Concurrency.Index);
     }
     
-    [Fact]
+    [Fact(Skip = "Undefined behaviour")]
     public void FiveThreads_100Iterations_RaceIsHardToReproduce()
     {
         var expected = Concurrency.Increment(5, 1000);
         Assert.Equal(expected, Concurrency.Index);
-    }
-    
-    [Fact(Skip = "Undefined behaviour")]
-    public void EightThreads_100KIterations_RaceIsReproduced()
-    {
-        var expected = Concurrency.Increment(8, 100_000);
-        Assert.NotEqual(expected, Concurrency.Index);
-        _toh.WriteLine($"Expected: {expected}; Actual: {Concurrency.Index}");
     }
 
     [Fact]
@@ -84,24 +76,11 @@ public class ConcurrencyTests
             Assert.True(elapsedWithLock > elapsedWithInterlocked);
         }
     }
-
-    public void Semaphore()
-    {
-        // TODO: homework+
-    }
-    
     [Fact]
     public async Task SemaphoreSlimWithTasks()
     {
         var expected = await Concurrency.IncrementAsync(8, 100_000);
         Assert.Equal(expected, Concurrency.Index);
-    }
-
-    public void NamedSemaphore_InterprocessCommunication()
-    {
-        // TODO: homework+
-        // https://learn.microsoft.com/en-us/dotnet/standard/threading/semaphore-and-semaphoreslim#named-semaphores
-        // see mutex as example
     }
 
     [Fact]
