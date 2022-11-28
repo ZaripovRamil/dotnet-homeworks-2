@@ -18,8 +18,6 @@ public class Program
         builder.Services.AddMiniProfiler();
         var app = builder.Build();
 
-        var app = builder.Build();
-
         if (!app.Environment.IsDevelopment())
         {
             app.UseExceptionHandler("/Home/Error");
