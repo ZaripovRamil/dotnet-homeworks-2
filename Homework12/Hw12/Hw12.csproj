@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BenchmarkDotNet" Version="0.13.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.11" />
+      <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Homework6\Hw6.Tests\Hw6Tests.csproj" />
+      <ProjectReference Include="..\..\Homework6\Hw6Client\Hw6Client.fsproj" />
+      <ProjectReference Include="..\..\Homework6\Hw6Server\Hw6Server.fsproj" />
+      <ProjectReference Include="..\..\Homework8\Hw8.Tests\Hw8.Tests.csproj" />
+      <ProjectReference Include="..\..\Homework8\Hw8\Hw8.csproj" />
+    </ItemGroup>
+
+</Project>

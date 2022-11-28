@@ -6,7 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs"/>
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
     </ItemGroup>
 
 </Project>
