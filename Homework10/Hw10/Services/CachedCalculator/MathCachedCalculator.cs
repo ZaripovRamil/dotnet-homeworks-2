@@ -7,19 +7,19 @@ namespace Hw10.Services.CachedCalculator;
 public class MathCachedCalculator : MathCalculator.MathCalculator
 {
     private readonly ApplicationContext _dbContext;
-    private IMemoryCache Cache { get; }
+    private readonly IMemoryCache _cache;
     public MathCachedCalculator(ApplicationContext dbContext, IMemoryCache cache)
     {
         _dbContext = dbContext;
-        Cache = cache;
+        _cache = cache;
     }
 
     public override async Task<CalculationMathExpressionResultDto>  CalculateMathExpressionAsync(string? expression)
     {
-        if (Cache.TryGetValue(expression, out double expRes)) return new CalculationMathExpressionResultDto(expRes);
+        if (_cache.TryGetValue(expression, out double expRes)) return new CalculationMathExpressionResultDto(expRes);
         var resultDto = await base.CalculateMathExpressionAsync(expression);
         if (!resultDto.IsSuccess) return resultDto;
-        Cache.Set(expression, resultDto.Result);
+        _cache.Set(expression, resultDto.Result);
         return resultDto;
     }
 }
