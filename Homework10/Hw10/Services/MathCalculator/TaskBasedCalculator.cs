@@ -11,27 +11,24 @@ public class TaskBasedCalculator
     {
         _expressionTaskHolder.Add(expression,
             new Lazy<Task<double>>(async ()=>await Calculate(expression, expression.Left, expression.Right)));
-        Console.WriteLine("boom");
     }
 
     public void Add(UnaryExpression expression)
     {
         _expressionTaskHolder.Add(expression,
             new Lazy<Task<double>>(async ()=> await Calculate(expression, expression.Operand)));
-        Console.WriteLine("boom");
     }
 
     public void Add(ConstantExpression expression)
     {
         _expressionTaskHolder.Add(expression,
             new Lazy<Task<double>>(Task.FromResult((double) expression.Value!)));
-        Console.WriteLine("boom");
     }
 
     public async Task<double> Calculate(Expression expression, params Expression[] expressions)
     {
         var tasks = expressions
-            .Select(async exp => await _expressionTaskHolder[exp].Value)
+            .Select(exp =>  _expressionTaskHolder[exp].Value)
             .ToArray();
         await Task.WhenAll(tasks);
         var values = tasks.Select(task => task.Result)

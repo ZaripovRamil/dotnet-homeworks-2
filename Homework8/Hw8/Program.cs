@@ -14,6 +14,8 @@ public class Program
         builder.Services.AddControllersWithViews();
         builder.Services.AddTransient<ICalculator, Calculator>();
         builder.Services.AddTransient<IParser, Parser>();
+
+        builder.Services.AddMiniProfiler();
         var app = builder.Build();
 
         if (!app.Environment.IsDevelopment())
@@ -24,6 +26,7 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+        app.UseMiniProfiler();
 
         app.UseRouting();
         app.UseAuthorization();

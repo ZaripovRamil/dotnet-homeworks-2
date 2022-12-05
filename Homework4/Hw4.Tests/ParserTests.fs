@@ -1,7 +1,6 @@
 module Hw4Tests.ParserTests
 
 open System
-open Hw4.Calculator
 open Hw4.CalculatorOperation
 open Hw4.Parser
 open Xunit

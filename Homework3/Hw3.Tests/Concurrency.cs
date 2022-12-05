@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Thread = System.Threading.Thread;
 
 namespace Hw3.Tests;
 
@@ -61,12 +62,11 @@ public static class Concurrency
         {
             var t = new Thread(() =>
             {
-                Event.WaitOne();
                 for (int j = 0; j < iterations; j++)
                 {
                     increment();
                 }
-            }) { IsBackground = true };
+            });
             threads.Add(t);
             t.Start();
         }

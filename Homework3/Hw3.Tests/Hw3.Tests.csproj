@@ -20,8 +20,4 @@
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Hw3.Mutex\Hw3.Mutex.csproj" />
-    </ItemGroup>
-
 </Project>
