@@ -3,13 +3,15 @@ using System.Diagnostics.CodeAnalysis;
 using Hw10.Configuration;
 using Hw10.DbModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 builder.Services
     .AddCachedMathCalculator();
-
+builder.Services.AddMemoryCache();
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
